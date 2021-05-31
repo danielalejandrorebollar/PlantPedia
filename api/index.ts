@@ -50,7 +50,7 @@ export function getPlant(
 
   return api
     .getPlant({ slug, preview: isPreview, locale }, extraHeaders)
-    .then((responseData) => {
+    .then((responseData) => {  
       if (
         responseData == null ||
         responseData.plantCollection == null ||
