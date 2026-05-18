@@ -9,43 +9,44 @@ import { getPlantList, getAuthorList } from '@api'
 import { Authors } from '@components/Authors'
 import { Hero } from '@components/Hero'
 
-type HomeProps = {plants: Plant[]}
+type HomeProps = {
+  plants: Plant[]
+}
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () =>{
   const plants = await getPlantList({ limit: 20})
 
-  const authors = await getAuthorList({limit:5})
+  // const authors = await getAuthorList({limit:5})
 
   return {
     props:{
-      plants,
-      authors
+      plants
     }
   }
 }
 
 
-export default function Home({plants, authors}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({plants}: InferGetStaticPropsType<typeof getStaticProps>) {
     const [data, setData] = useState<Plant[]>([])
 
-    useEffect(()=>{
-        // fetchPlants()
-        // .then(response => response.json())
-        // .then(data=>console.log(data))
+    // useEffect(()=>{
+    //     // fetchPlants()
+    //     // .then(response => response.json())
+    //     // .then(data=>console.log(data))
 
-        // getPlantList({limit:20}).then(receivedData =>{
-        //   receivedData.forEach( item => console.log(item.author.fullName))
-        // })
-        const call = async () => {
-        const receivedData = await getPlantList({limit: 20})
-        setData(receivedData)
-        //response.forEach((item,index)=>console.log(index+1,item.author.fullName))
-    }
-    call()
+    //     // getPlantList({limit:20}).then(receivedData =>{
+    //     //   receivedData.forEach( item => console.log(item.author.fullName))
+    //     // })
+    //     const call = async () => {
+    //     const receivedData = await getPlantList({limit: 20})
+    //     setData(receivedData)
+    //     //response.forEach((item,index)=>console.log(index+1,item.author.fullName))
+    // }
+    // call()
     
-    },[])
+    // },[])
     
-    console.log(plants)
+    // console.log(plants)
 
     return (
 

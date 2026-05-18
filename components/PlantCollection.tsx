@@ -76,11 +76,11 @@ export function PlantEntryInline({
     <Link href={`/entry/${slug}`}>
       <a title={`Go to ${plantName}`}>
         <div
-          className={`opacity-95 hover:opacity-100 flex items-end ${className}`}
+          className={`opacity-95 hover:opacity-100 flex items-end ${className} w-80`}
         >
           <img src={image.url} width={84} className="flex-none" />
-          <div className="pl-2 flex-auto">
-            <Typography variant="h6" className="break-words">
+          <div className="pl-2 flex-auto" >
+            <Typography  className="break-words text-[8px] overflow-hidden  text-ellipsis">
               {plantName}
             </Typography>
           </div>
