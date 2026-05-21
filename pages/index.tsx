@@ -1,11 +1,11 @@
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { Grid } from '@ui/Grid'
-import { Button } from '@ui/Button'
-import { Typography } from '@ui/Typography'
-import { useEffect, useState } from 'react'
+// import { Grid } from '@ui/Grid'
+// import { Button } from '@ui/Button'
+// import { Typography } from '@ui/Typography'
+// import { useState } from 'react'
 import { Layout } from '@components/Layout'
 import { PlantCollection } from '@components/PlantCollection'
-import { getPlantList, getAuthorList } from '@api'
+import { getPlantList } from '@api'
 import { Authors } from '@components/Authors'
 import { Hero } from '@components/Hero'
 
@@ -21,13 +21,14 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () =>{
   return {
     props:{
       plants
-    }
+    },
+    revalidate:  5,
   }
 }
 
 
 export default function Home({plants}: InferGetStaticPropsType<typeof getStaticProps>) {
-    const [data, setData] = useState<Plant[]>([])
+    // const [data, setData] = useState<Plant[]>([])
 
     // useEffect(()=>{
     //     // fetchPlants()
@@ -46,7 +47,6 @@ export default function Home({plants}: InferGetStaticPropsType<typeof getStaticP
     
     // },[])
     
-    // console.log(plants)
 
     return (
 

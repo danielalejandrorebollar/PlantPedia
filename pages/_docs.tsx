@@ -5,28 +5,28 @@ import { useEffect } from 'react'
 import { Layout } from '@components/Layout'
 import { getPlantList } from '@api'
 
-  const fetchPlants = () =>   
-    fetch('https://graphql.contentful.com/content/v1/spaces/5ow9wb5vlsph',{
-      method: 'POST',
-      headers:{
-        'Content-type' :'application/json',
-        Authorization:'Bearer sdZKkXhhLOqRhGJkL8uCqBQLHvVPGkCEzXw4h-Muhlk'
-      },
-      body: JSON.stringify({
-            query:`{
-            authorCollection  {
-              items {
-                biography
-                _id
-                fullName
-                handle
-                linkedIn
-                twitter
-              }
-            }
-          }`})
-    }
-  )
+  // const fetchPlants = () =>   
+  //   fetch('https://graphql.contentful.com/content/v1/spaces/5ow9wb5vlsph',{
+  //     method: 'POST',
+  //     headers:{
+  //       'Content-type' :'application/json',
+  //       Authorization:'Bearer sdZKkXhhLOqRhGJkL8uCqBQLHvVPGkCEzXw4h-Muhlk'
+  //     },
+  //     body: JSON.stringify({
+  //           query:`{
+  //           authorCollection  {
+  //             items {
+  //               biography
+  //               _id
+  //               fullName
+  //               handle
+  //               linkedIn
+  //               twitter
+  //             }
+  //           }
+  //         }`})
+  //   }
+  // )
 export default function Home() {
 
   useEffect(()=>{
