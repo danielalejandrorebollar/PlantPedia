@@ -7,8 +7,10 @@ import {
   IGetAuthorListQueryVariables,
   IGetPlantListByAuthorQueryVariables,
   IGetPlantListByCategoryQueryVariables,
+  IGetPlantQueryVariables,
 } from './generated/graphql'
 import * as selectors from './selectors'
+import { serialize } from 'cookie';
 
 export type QueryStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -47,9 +49,13 @@ export function getPlant(
     // Use the preview access token for auth
     extraHeaders['Authorization'] = `Bearer ${process.env.PREVIEW_ACCESS_TOKEN}`
   }
-
+  const variables: IGetPlantQueryVariables = {
+    slug,
+    preview: isPreview,
+    locale
+  }
   return api
-    .getPlant({ slug, preview: isPreview, locale }, extraHeaders)
+    .getPlant(variables, extraHeaders)
     .then((responseData) => {  
       if (
         responseData == null ||
@@ -129,3 +135,4 @@ export function getPlantListByCategory(
       }
     })
 }
+

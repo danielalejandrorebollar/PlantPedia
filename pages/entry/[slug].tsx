@@ -4,8 +4,9 @@ import { Layout } from '@components/Layout'
 import { RichText } from '@components/RichText'
 import { Grid, Link, Typography } from '@material-ui/core'
 import { useRouter } from 'next/router'
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import { PlantEntryInline } from '@components/PlantCollection'
+import {flatMap} from 'lodash' 
 import path from 'path'
 import fs from 'fs'
 
@@ -15,30 +16,39 @@ type PathType = {
     params:{
         slug:string
     }
+    locale: string
 }
 
-export const getStaticPaths = async () =>{
-    
-    // const entries = await getPlantList({limit : 20})
+export const getStaticPaths: GetStaticPaths = async ({locales}) =>{
+    if(locales === undefined){
+        throw Error("you do not defined locales en nextconfig")
+    }
+    const plantEntriesToGenerate = await getPlantList({limit : 20})
 
-    // const paths: PathType[] = entries.map(plant=>({
-    //     params:{
-    //         slug:plant.slug
-    //     }
-    // }))
+    const paths: PathType[] = flatMap(plantEntriesToGenerate.map(plant=>({
+        params:{
+            slug:plant.slug
+        }
+    })),(path)=>locales.map(loc => ({locale: loc, ...path })));
+
+
     // const nuevo =  paths.map(plant=> plant.params.slug)
     // console.log("linea 29", nuevo)
 
-    const plantEntriesFromFS = fs.readFileSync(path.join(process.cwd(), 'paths.txt'), 'utf-8').toString()
-    const plantEntriestoGenereate = plantEntriesFromFS.replace(/'/g, "").split(/,\r?\n/)
+    // const plantEntriesFromFS = fs.readFileSync(path.join(process.cwd(), 'paths.txt'), 'utf-8').toString()
+    // const plantEntriestoGenereate = plantEntriesFromFS.replace(/'/g, "").split(/,\r?\n/)
     // console.log("linea 32", plantEntriestoGenereate)
 
-    const paths: PathType[] = plantEntriestoGenereate.map(plant=>({
-            params:{
-                slug:plant
-            }
-        }))
+    // const paths: PathType[] = plantEntriestoGenereate.map(plant=>({
+    //         params:{
+    //             slug:plant
+    //         }
+    //     }))
 // console.log(paths)
+
+
+
+
     return {
         paths,
         //404 en entradas no encontrardas fallback: false
@@ -59,16 +69,21 @@ type PlantEntryProps = {
         
 }
 
-export const getStaticProps : GetStaticProps<PlantEntryProps> = async ({ params }) =>{
+export const getStaticProps : GetStaticProps<PlantEntryProps> = async ({ params, preview , locale }) =>{
     const slug = params?.slug
-    if(typeof slug !== 'string' ){
+    if(typeof slug !== 'string'  ){
         return {
             notFound: true //lo que nos permite nextjs tambien podemos hacer redirect
         }
     }
+    console.log("linea 79", typeof locale, locale, preview)
+    if(locale === undefined){
+        throw Error("you do not defined locales en nextconfig") 
+    }
 
     try {
-        const plant = await getPlant(slug)
+    
+        const plant = await getPlant(slug, preview, locale)
         const otherEntries = await getPlantList({limit: 5})
         const categories = await getCategoryList({limit:6})
         // console.log(categories)

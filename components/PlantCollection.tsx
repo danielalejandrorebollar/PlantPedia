@@ -73,7 +73,7 @@ export function PlantEntryInline({
   className,
 }: Plant & { className?: string }) {
   return (
-    <Link href={`/entry/${slug}`}>
+    <Link prefetch={false} href={`/entry/${slug}`}>
       <a title={`Go to ${plantName}`}>
         <div
           className={`opacity-95 hover:opacity-100 flex items-end ${className} w-80`}

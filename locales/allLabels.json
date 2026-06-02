@@ -1,0 +1,28 @@
+
+{
+	"es":{
+		"buy": "Comprar",
+		"accept": "Aceptar",
+    "pages": "Páginas",
+    "gettingStarted": "Comienza",
+    "search": "Búsqueda",
+    "topStories": "Historias Top",
+    "about": "Acerca de nosotros",
+    "nextCourse": "Platzi Curso Siguiente",
+    "imagesFrom": "Imágenes por "
+		
+	},
+	"en-US":{
+		"buy": "Buy",
+		"accept": "Accept",
+    "pages": "Pages",
+    "gettingStarted": "Getting Starting",
+    "search": "Search",
+    "topStories": "Top Stories",
+    "about": "About",
+    "nextCourse": "Platzi Next Course",
+    "imagesFrom": "Images from "
+		
+	}
+	
+}
