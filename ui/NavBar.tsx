@@ -4,7 +4,8 @@ import { AppBar, Button, Menu, MenuItem, Toolbar } from '@material-ui/core'
 
 import { Typography } from './Typography'
 import { useRouter } from 'next/router'
-import { language } from '@api/index'
+// import { language } from '@api/index'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   title: string
@@ -17,7 +18,7 @@ export function NavBar({ title, children }: Props) {
   const [menu, setMenu] = useState<boolean>(false)
   const {locale, locales} = useRouter()
   const router = useRouter()
-  console.log(locale)
+  const { t } = useTranslation(['common'])
   
   let lang
   if(locale == "es"){
@@ -69,10 +70,13 @@ export function NavBar({ title, children }: Props) {
       <Toolbar>
         <PlantpediaNoLoVeniasVenirLogo title={title} />
         <Typography variant="h6"  component="h6">
+          {t('language')}
+        </Typography>
+        <Typography variant="h6"  component="h6">
         <Button 
           onClick={toggleLanguage}
         >
-          {lang}
+          {t('menuLanguage')}
         </Button>
         <Menu anchorEl={anchorEl} open={menu}>
           {

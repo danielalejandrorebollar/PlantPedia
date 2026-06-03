@@ -1,0 +1,9 @@
+{
+  "wearesorry": "We're sorry",
+  "notFoundErrorMessage": " We couldn't find the item",
+  "goHome": "Something go wrong go home",
+  "somethingWentWrong": "Something went wrong",
+  "errorMessage": "It's not you, we sorry about that",
+  "serverError": "An error occurred please wait while we solve this issue",
+  "clientError": "An error occurred please try again and check everything is correct"
+}

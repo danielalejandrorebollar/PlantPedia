@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app'
 import { useServerStyles } from '@ui/ssr'
 import { UIProvider } from '@ui/Provider'
-
+import { appWithTranslation  } from 'next-i18next'
 import '../ui/globals.css'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -23,12 +23,12 @@ const NextApp = ({ Component, pageProps }: AppProps) => {
     const start=()=>{
         favicon.href="/actualizar.png"
         document.title="Cargando..."
-        console.log("inicio")
+        // console.log("inicio")
     }
 
     const end=()=>{
         favicon.href="/leaf.png"
-        console.log("fin")
+        // console.log("fin")
         document.title="Plantpedia"
     }
 
@@ -54,4 +54,4 @@ const NextApp = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-export default NextApp
+export default appWithTranslation(NextApp)

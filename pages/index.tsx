@@ -8,6 +8,8 @@ import { PlantCollection } from '@components/PlantCollection'
 import { getPlantList } from '@api'
 import { Authors } from '@components/Authors'
 import { Hero } from '@components/Hero'
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
+
 
 type HomeProps = {
   plants: Plant[]
@@ -15,12 +17,14 @@ type HomeProps = {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
   const plants = await getPlantList({ limit: 20, locale})
-
+  const i18nConf = await serverSideTranslations(locale! , ['common'])
+  console.log(i18nConf)
   // const authors = await getAuthorList({limit:5})
 
   return {
     props:{
-      plants
+      plants,
+      ...i18nConf
     },
     revalidate:  5,
   }

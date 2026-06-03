@@ -156,7 +156,7 @@ const PlantEntryPage = ({
 // }
 
 
-if(notFound === true ){
+if(notFound === true || plant === undefined ){
     return (
         <Layout>
             <main>404 not found</main>

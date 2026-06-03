@@ -9,7 +9,9 @@
     "topStories": "Historias Top",
     "about": "Acerca de nosotros",
     "nextCourse": "Platzi Curso Siguiente",
-    "imagesFrom": "Imágenes por "
+    "imagesFrom": "Imágenes por ",
+    "language": "Lenguage",
+    "menuLanguage": "ES"
 		
 	},
 	"en-US":{
@@ -21,7 +23,10 @@
     "topStories": "Top Stories",
     "about": "About",
     "nextCourse": "Platzi Next Course",
-    "imagesFrom": "Images from "
+    "imagesFrom": "Images from ",
+    "language": "Language",
+    "menuLanguage": "US"
+    
 		
 	}
 	

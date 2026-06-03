@@ -3,14 +3,20 @@ import { Grid } from '@ui/Grid'
 import { Typography } from '@ui/Typography'
 import { useContext } from 'react'
 import { LocaleContext } from './useTranslations'
+import { useTranslation } from 'next-i18next'
 
 export const Footer = ({ className }: { className?: string }) => {
 
+  //usando la librería next-i18next
+  const { t } = useTranslation(['common'])
+  // console.log(t('pages'))
+  
+  
+  //usando el context para el localeContextm
   const {labels} = useContext(LocaleContext)
-  // console.log(locale)
   // let labels: object
   // labels = allLocales[locale.locale]
-  console.log(labels)
+  // console.log(labels)
   
   return (
     <footer
@@ -34,17 +40,17 @@ export const Footer = ({ className }: { className?: string }) => {
           </Grid>
           <Grid item xs={6} sm={4}>
             <Typography variant="h5" className="mb-4">
-              {labels.pages}
+              {t('pages')}
             </Typography>
             <ul className="p0">
               <li className="pb-1">
                 <a href="/getting-started">{labels.gettingStarted}</a>
               </li>
               <li className="pb-1">
-                <a href="/search">{labels.search}</a>
+                <a href="/search">{t('search')}</a>
               </li>
               <li className="pb-1">
-                <a href="/top-stories">{labels.topStories}</a>
+                <a href="/top-stories">{t('topStories')}</a>
               </li>
             </ul>
           </Grid>
