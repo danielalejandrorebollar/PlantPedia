@@ -10,7 +10,6 @@ import {
   IGetPlantQueryVariables,
 } from './generated/graphql'
 import * as selectors from './selectors'
-import { serialize } from 'cookie';
 
 export type QueryStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -23,6 +22,7 @@ const client = new GraphQLClient(
     },
   }
 )
+
 
 const api = getSdk(client)
 

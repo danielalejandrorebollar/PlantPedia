@@ -36,7 +36,7 @@ export function NavBar({ title, children }: Props) {
 
       setMenu(false)
       setAnchorEl(null)
-      console.log(nuevoIdioma)
+      // console.log(nuevoIdioma)
 
       try {
         const response =  await  fetch("/api/change-language",{
@@ -49,7 +49,7 @@ export function NavBar({ title, children }: Props) {
         if (response.ok) {
         // 2. En Next.js 10, para que el cambio de idioma surta efecto visual,
         // usamos el router cambiando el locale actual.
-        router.push("/", router.asPath, { locale: nuevoIdioma });
+        router.push("/", router.asPath, { locale: nuevoIdioma});
       }
       } catch (error) {
         console.log(error)
@@ -59,7 +59,7 @@ export function NavBar({ title, children }: Props) {
 
     }
       
-
+    // console.log(t('menuLanguage'))
   return (
     <AppBar
       position="static"
@@ -69,14 +69,14 @@ export function NavBar({ title, children }: Props) {
     >
       <Toolbar>
         <PlantpediaNoLoVeniasVenirLogo title={title} />
-        <Typography variant="h6"  component="h6">
+        <Typography variant="h6" style={{fontSize:'14px'}}  component="h6">
           {t('language')}
         </Typography>
         <Typography variant="h6"  component="h6">
         <Button 
           onClick={toggleLanguage}
         >
-          {t('menuLanguage')}
+          {lang}
         </Button>
         <Menu anchorEl={anchorEl} open={menu}>
           {

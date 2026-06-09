@@ -34,7 +34,7 @@ export function Authors({ className }: AuthorProps) {
           <Link href={`/top-stories/${handle}`}>
             <a title={`See latest stories from ${fullName}`}>
               <img src={photo.url} width={150} />
-              <Typography variant="h5" component="p">
+              <Typography variant="h5" component="p" style={{textAlign:'center'}}>
                 {fullName}
               </Typography>
             </a>

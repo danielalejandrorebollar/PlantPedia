@@ -16,14 +16,14 @@ type HomeProps = {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
+  
   const plants = await getPlantList({ limit: 20, locale})
   const i18nConf = await serverSideTranslations(locale! , ['common'])
-  console.log(i18nConf)
+  // console.log(i18nConf)
   // const authors = await getAuthorList({limit:5})
-
   return {
     props:{
-      plants,
+      plants, 
       ...i18nConf
     },
     revalidate:  5,
@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
 
 export default function Home({plants}: InferGetStaticPropsType<typeof getStaticProps>) {
     // const [data, setData] = useState<Plant[]>([])
-
+  
     // useEffect(()=>{
     //     // fetchPlants()
     //     // .then(response => response.json())
@@ -58,7 +58,12 @@ export default function Home({plants}: InferGetStaticPropsType<typeof getStaticP
         <Hero {...plants[0]} className='mb-20' />
         <Authors  className='mb-20' />
         <PlantCollection
-          plants={plants.slice(1,9)}
+          plants={plants.slice(1,3)}
+          variant='pair'
+          className='mb-20'
+        />
+        <PlantCollection
+          plants={plants.slice(3,8)}
           variant='square'
           className='mb-20'
         />

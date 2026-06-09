@@ -8,7 +8,10 @@ const config = {
   future: {
     webpack5: true,
   },
-  i18n
+  i18n, 
+  images:{
+    domains:['images.ctfassets.net'],
+  },
 }
 
 module.exports = withBundleAnalyzer(config)

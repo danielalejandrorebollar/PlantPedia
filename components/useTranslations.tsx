@@ -37,8 +37,7 @@ export const LocaleProvider = ({children}: {children: React.ReactNode}) => {
 
   let { locale } = useRouter();
 
-  const currentLocale: Locale = locale &&
-      locale in allLocales
+  const currentLocale: Locale = locale && locale in allLocales
         ? (locale as Locale)
         : 'es';
 
