@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import { PlantEntryInline } from '@components/PlantCollection'
 import {flatMap} from 'lodash' 
-import path from 'path'
-import fs from 'fs'
+import NotFound from  '../500'
+
 
 //2 Que paginas re renderizar sucde una vez en build time
 
@@ -76,7 +76,7 @@ export const getStaticProps : GetStaticProps<PlantEntryProps> = async ({ params,
             notFound: true //lo que nos permite nextjs tambien podemos hacer redirect
         }
     }
-    console.log("linea 79", typeof locale, locale, preview)
+    // console.log("linea 79", typeof locale, locale, preview)
     if(locale === undefined){
         throw Error("you do not defined locales en nextconfig") 
     }
@@ -118,6 +118,7 @@ const PlantEntryPage = ({
     const router = useRouter()
     
     if(router.isFallback){
+        console.log(plant)
         return (
             <Layout>
                 Cargando...
@@ -158,9 +159,7 @@ const PlantEntryPage = ({
 
 if(notFound === true || plant === undefined ){
     return (
-        <Layout>
-            <main>404 not found</main>
-        </Layout>
+        <NotFound/>
         
     )
 }

@@ -69,6 +69,7 @@ export function NavBar({ title, children }: Props) {
     >
       <Toolbar>
         <PlantpediaNoLoVeniasVenirLogo title={title} />
+        {children}
         <Typography variant="h6" style={{fontSize:'14px'}}  component="h6">
           {t('language')}
         </Typography>

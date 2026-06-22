@@ -6,9 +6,7 @@ import { getAuthorList } from '@api'
  * Redirects to /top-stories/<first-author-in-the-list>
  */
 
-export const getServerSideProps: GetServerSideProps<{
-  error: number
-}> = async () => {
+export const getServerSideProps: GetServerSideProps<{error: number}> = async () => {
   try {
     const authors = await getAuthorList({ limit: 10 })
 

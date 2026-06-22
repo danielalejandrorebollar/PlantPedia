@@ -7,18 +7,21 @@ import { Alert } from '@ui/Alert'
 import { Layout } from '@components/Layout'
 import { PlantCollection } from '@components/PlantCollection'
 import { AuthorCard } from '@components/AuthorCard'
+import ErrorPage from '../_error'
 
 import { getAuthorList, getPlantListByAuthor, QueryStatus } from '@api'
 import { IGetPlantListByAuthorQueryVariables } from '@api/generated/graphql'
+import { useRouter } from 'next/router'
+// import shadows from '@material-ui/core/styles/shadows
 
 type TopStoriesPageProps = {
   authors: Author[]
   currentAuthor: Author['handle']
-  status: 'error' | 'sucess'
+  status: 'error' | 'success'
 }
 
-export const getServerSideProps: GetServerSideProps<TopStoriesPageProps> =
-  async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<TopStoriesPageProps> = async ({ params }) => {
+
     const authorHandle = String(params?.author)
 
     try {
@@ -43,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<TopStoriesPageProps> =
         props: {
           authors,
           currentAuthor: authorHandle,
-          status: 'sucess',
+          status: 'success',
         },
       }
     } catch (e) {
@@ -59,28 +62,35 @@ export const getServerSideProps: GetServerSideProps<TopStoriesPageProps> =
 
 export default function TopStories({
   authors,
-  currentAuthor,
+  
   status,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [currentTab, setCurrentTab] = useState(currentAuthor)
+  
+  // const [currentTab, setCurrentTab] = useState(currentAuthor)
+  const router = useRouter()
+  console.log(router)
+  const currentAuthor = router.query.author
 
-  if (authors.length === 0 || status === 'error') {
-    return (
-      <Layout>
-        <main className="pt-10 px-6">
-          <div className="pb-16">
-            <Typography variant="h2">Huh, algo no está bien 🙇‍♀️</Typography>
-          </div>
-          <article>
-            <Alert severity="error">
-              {status === 'error'
-                ? 'Hubo un error consultando la información. Inspeccionar el request en la pestaña Network de DevTools podría dar más información'
-                : 'No se encontró la información. ¿Olvidaste configurar el contenido en Contentful?'}
-            </Alert>
-          </article>
-        </main>
-      </Layout>
-    )
+  // if (typeof currentAuthor !== "string" || authors.length === 0 || status === 'error') {
+  //   return (
+  //     <Layout>
+  //       <main className="pt-10 px-6">
+  //         <div className="pb-16">
+  //           <Typography variant="h2">Huh, algo no está bien 🙇‍♀️</Typography>
+  //         </div>
+  //         <article>
+  //           <Alert severity="error">
+  //             {status === 'error'
+  //               ? 'Hubo un error consultando la información. Inspeccionar el request en la pestaña Network de DevTools podría dar más información'
+  //               : 'No se encontró la información. ¿Olvidaste configurar el contenido en Contentful?'}
+  //           </Alert>
+  //         </article>
+  //       </main>
+  //     </Layout>
+  //   )
+  // }
+  if(typeof currentAuthor !== "string" || authors.length === 0 || status === 'error'){
+    return <ErrorPage message='something went wrong' statusCode={404}/>
   }
 
   const tabs: TabItem[] = authors.map((author) => ({
@@ -97,8 +107,8 @@ export default function TopStories({
         </div>
         <VerticalTabs
           tabs={tabs}
-          currentTab={currentTab}
-          onTabChange={(_, newValue) => setCurrentTab(newValue)}
+          currentTab={currentAuthor}
+          onTabChange={(_, newValue) => router.push(`/top-stories/${newValue}`,undefined, { shallow: true })}
         />
       </main>
     </Layout>
@@ -112,7 +122,6 @@ function AuthorTopStories(author: AuthorTopStoriesProps) {
     authorId: author.id,
     limit: 12,
   })
-
   return (
     <div>
       <section className="pb-16">
@@ -153,7 +162,7 @@ export const usePlantListByAuthor = (
 
   return {
     data: plantList,
-    status,
+    status, 
     error,
   }
 }
