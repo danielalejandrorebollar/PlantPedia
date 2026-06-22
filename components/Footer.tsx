@@ -9,8 +9,13 @@ export const Footer = ({ className }: { className?: string }) => {
 
   //usando la librería next-i18next
   const { t } = useTranslation(['common'])
+  // const translation = useTranslation('common')
+  // console.log("objeto translation", translation)
+  // const router = useRouter()
+  // console.log(t('search'))
   // console.log(t('pages'))
-  
+  // console.log(router.locale)
+  // console.log('i18',i18n.language)
   
   //usando el context para el localeContextm
   const {labels} = useContext(LocaleContext)

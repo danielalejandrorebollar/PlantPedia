@@ -68,7 +68,7 @@ export default function TopStories({
   
   // const [currentTab, setCurrentTab] = useState(currentAuthor)
   const router = useRouter()
-  console.log(router)
+  
   const currentAuthor = router.query.author
 
   // if (typeof currentAuthor !== "string" || authors.length === 0 || status === 'error') {

@@ -36,7 +36,7 @@ export function NavBar({ title, children }: Props) {
 
       setMenu(false)
       setAnchorEl(null)
-      // console.log(nuevoIdioma)
+      console.log("nuevoidionma",nuevoIdioma)
 
       try {
         const response =  await  fetch("/api/change-language",{

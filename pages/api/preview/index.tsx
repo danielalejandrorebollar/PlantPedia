@@ -1,6 +1,5 @@
 import { getPlant } from '@api/index'
 import { NextApiHandler } from 'next'
-import { useRouter } from 'next/router'
 
 const enablePreview:NextApiHandler = async (request, response) => {
   // const router = useRouter()

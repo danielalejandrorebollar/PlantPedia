@@ -8,6 +8,7 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import { PlantEntryInline } from '@components/PlantCollection'
 import {flatMap} from 'lodash' 
 import NotFound from  '../500'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 
 //2 Que paginas re renderizar sucde una vez en build time
@@ -70,7 +71,11 @@ type PlantEntryProps = {
 }
 
 export const getStaticProps : GetStaticProps<PlantEntryProps> = async ({ params, preview , locale }) =>{
+    
     const slug = params?.slug
+
+    const i18nConf = await serverSideTranslations(locale! , ['common'])
+
     if(typeof slug !== 'string'  ){
         return {
             notFound: true //lo que nos permite nextjs tambien podemos hacer redirect
@@ -92,6 +97,7 @@ export const getStaticProps : GetStaticProps<PlantEntryProps> = async ({ params,
                 plant,
                 categories,
                 otherEntries,
+                ...i18nConf,
             },
             revalidate: 5 * 60,
         }
@@ -159,7 +165,7 @@ const PlantEntryPage = ({
 
 if(notFound === true || plant === undefined ){
     return (
-        <NotFound/>
+        <NotFound statusCode={500}/>
         
     )
 }
@@ -198,7 +204,7 @@ if(notFound === true || plant === undefined ){
                         <Typography variant="h5" component="h3" className="mb-4">
                             Categories
                             {categories?.map(category=>(
-                                <li key={category.id} style={{listStyle:"none", marginLeft:"20px"}} key={category.id}>
+                                <li key={category.id} style={{listStyle:"none", marginLeft:"20px"}} >
                                     <Link href={`/category/${category.slug}`}>
                                         {category.title}
                                     </Link>

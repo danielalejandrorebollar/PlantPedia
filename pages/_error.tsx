@@ -59,10 +59,9 @@ const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode, message }) => {
     </Layout>
   )
 }
-
-ErrorPage.getInitiaProps = ({res, err}) => {
-  const statusCode = res ? res.statusCode : err ? err.StatusCode : false
-  return {statusCode}
+ErrorPage.getInitialProps = ({res, err}) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 500
+  return {statusCode, message:err?.message ?? 'Unexpected Error'}
 }
 
 export default ErrorPage
