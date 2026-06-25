@@ -9,7 +9,7 @@ import { PlantCollection } from '@components/PlantCollection'
 import { AuthorCard } from '@components/AuthorCard'
 import ErrorPage from '../_error'
 
-import { getAuthorList, getPlantListByAuthor, QueryStatus } from '@api'
+import { getAuthorList, QueryStatus } from '@api'
 import { IGetPlantListByAuthorQueryVariables } from '@api/generated/graphql'
 import { useRouter } from 'next/router'
 // import shadows from '@material-ui/core/styles/shadows
