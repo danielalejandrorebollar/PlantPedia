@@ -9,29 +9,43 @@ import { getPlantList } from '@api'
 import { Authors } from '@components/Authors'
 import { Hero } from '@components/Hero'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
+import NotFound from  './500'
 
 
 type HomeProps = {
-  plants: Plant[]
+  plants?: Plant[],
+  notFound?: boolean
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
-  
-  const plants = await getPlantList({ limit: 20, locale})
-  const i18nConf = await serverSideTranslations(locale! , ['common'])
-  // console.log(i18nConf)
-  // const authors = await getAuthorList({limit:5})
-  return {
-    props:{
-      plants, 
-      ...i18nConf
-    },
-    revalidate:  5,
+
+  try {
+    const plants = await getPlantList({ limit: 20, locale})
+    // console.log("Plantas en getStaticProps de Index general",plants)
+    const i18nConf = await serverSideTranslations(locale! , ['common'])
+    // console.log(i18nConf)
+    // const authors = await getAuthorList({limit:5})
+    return {
+      props:{
+        plants, 
+        ...i18nConf
+      },
+      revalidate:  5,
+    }
+    
+  } catch (error) {
+    console.log("estes es el error en getStaticProps",error)
+    return {
+      props:{
+        notFound:true
+      }
+    }
   }
+
 }
 
 
-export default function Home({plants}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({plants, notFound}: InferGetStaticPropsType<typeof getStaticProps>) {
     // const [data, setData] = useState<Plant[]>([])
   
     // useEffect(()=>{
@@ -50,7 +64,15 @@ export default function Home({plants}: InferGetStaticPropsType<typeof getStaticP
     // call()
     
     // },[])
-    
+
+    // console.log("Plantas",plants)
+    // console.log("NotFound",notFound)
+    if(notFound === true || plants === undefined ){
+        return (
+            <NotFound statusCode={500}/>
+            
+        )
+    }
 
     return (
 

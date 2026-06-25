@@ -149,16 +149,51 @@ export const usePlantListByAuthor = (
 
   useEffect(() => {
     setStatus('loading')
-    getPlantListByAuthor(args)
-      .then((receivedPlants) => {
-        setPlantList(receivedPlants)
-        setStatus('success')
-      })
-      .catch((e) => {
-        setError(e)
-        setStatus('error')
-      })
+    const request = async () => {
+      try {
+      const response = await fetch("/api/plantListByAuthor",{
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ args }),
+        });
+        if(response.ok){
+          const data = await response.json();
+          const receivedPlants = data.props.plants;
+          console.log(receivedPlants)
+          setPlantList(receivedPlants)
+          setStatus('success')
+        }
+        if(response.status == 500){
+          const data = await response.json();
+          const error = data.props.error;
+          setError(error)
+          setStatus('error')
+        }
+    
+    
+
+    } catch (e) {
+        console.log("error en el usePlanListByAuthor",e)
+      
+    }
+    }
+    
+    
+    request()
   }, [])
+  //   getPlantListByAuthor(args)
+  //     .then((receivedPlants) => {
+  //       setPlantList(receivedPlants)
+  //       setStatus('success')
+  //     })
+  //     .catch((e) => {
+  //       console.log("error en el usePlanListByAuthor",e)
+  //       setError(e)
+  //       setStatus('error')
+  //     })
+  // }, [])
 
   return {
     data: plantList,
