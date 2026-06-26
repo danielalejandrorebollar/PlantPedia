@@ -1,8 +1,8 @@
 import { getAuthorList } from '@api/index';
-import type {  NextApiRequest,NextApiResponse } from 'next';
+import type {  NextApiResponse } from 'next';
 
 
-export default async function  handler(req:NextApiRequest,  res: NextApiResponse) {
+export default async function  handler(  res: NextApiResponse) {
 
   
   try {
