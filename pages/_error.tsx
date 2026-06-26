@@ -14,7 +14,7 @@ type ErrorPageProps = {
 
 
 const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode, message }) => {
-
+  console.log("statusCode desde _error",statusCode)
   if (statusCode === 404){
     return <NotFound />
   }

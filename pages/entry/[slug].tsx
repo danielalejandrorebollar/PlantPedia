@@ -124,7 +124,6 @@ const PlantEntryPage = ({
     const router = useRouter()
     
     if(router.isFallback){
-        console.log(plant)
         return (
             <Layout>
                 Cargando...
@@ -165,7 +164,7 @@ const PlantEntryPage = ({
 
 if(notFound === true || plant === undefined ){
     return (
-        <NotFound statusCode={500}/>
+        <NotFound message='No se encontró' statusCode={500}/>
         
     )
 }

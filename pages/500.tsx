@@ -4,7 +4,8 @@ import {Typography} from '@material-ui/core'
 import { Layout } from '@components/Layout'
 
 
-const ErrorPage = ({statusCode,message}:{statusCode:number,message:string}) => {
+const ErrorPage = ({statusCode,message}:{statusCode:number,message?:string}) => {
+  console.log(message)
   return (
     <Layout>
       <div className="text-center">
@@ -12,7 +13,7 @@ const ErrorPage = ({statusCode,message}:{statusCode:number,message:string}) => {
           🍄 Something went wrong {statusCode}
         </Typography>
         <Typography variant="body1" className="mb-6">
-          {message}
+          Mensaje de Error:{message}
         </Typography>
         <Typography variant="body1" className="mb-6">
           It's not you, it's us. Please try it again in a few minutes.
