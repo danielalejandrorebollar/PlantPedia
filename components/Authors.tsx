@@ -48,16 +48,58 @@ export function Authors({ className }: AuthorProps) {
 function useAuthors() {
   const [status, setStatus] = useState<QueryStatus>('idle')
   const [data, setData] = useState<Author[] | null>(null)
+  const [error, setError] = useState<Error[] | null>(null)
 
-  useEffect(
-    () => {
+  // useEffect(
+  //   () => {
+  //     setStatus('loading')
+  //     getAuthorList({ limit: 10 })
+  //       .then((returnedData) => {
+  //         setData(returnedData)
+  //         setStatus('success')
+  //       })
+  //       .catch(() => setStatus('error'))
+  //   },
+  //   [
+  //     // Run effect once
+  //   ]
+  // )
+
+  // return {
+  //   status,
+  //   data,
+  // }
+
+  useEffect(() => {
       setStatus('loading')
-      getAuthorList({ limit: 10 })
-        .then((returnedData) => {
-          setData(returnedData)
+      const request = async () => {
+      try {
+      const response = await fetch("/api/listAuthors");
+        console.log(response)
+        if(response.ok){
+          const data = await response.json();
+          const receivedAuthors = data.props.authors;
+          console.log("autores desde Authors",receivedAuthors)
+          setData(receivedAuthors)
           setStatus('success')
-        })
-        .catch(() => setStatus('error'))
+        }
+        if(response.status == 500){
+          const data = await response.json();
+          const error = data.props.error;
+          setStatus('error')
+          setError(error)
+        }
+    
+    
+
+    } catch (e) {
+        console.log("error en el usePlanListByAuthor",e)
+      
+    }
+    }
+    
+    
+    request()
     },
     [
       // Run effect once
@@ -67,5 +109,6 @@ function useAuthors() {
   return {
     status,
     data,
+    error
   }
 }
