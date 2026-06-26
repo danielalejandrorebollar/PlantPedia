@@ -20,12 +20,13 @@ type HomeProps = {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
-
+  
+  console.log('locale =', locale)
   try {
-    const plants = await getPlantList({ limit: 20, locale})
-    console.log("Plantas en getStaticProps de Index general",plants)
+    // const plants = await getPlantList({ limit: 20, locale})
+    // console.log("Plantas en getStaticProps de Index general",plants)
     const i18nConf = await serverSideTranslations(locale! , ['common'], nextI18NextConfig)
-    // console.log(i18nConf)
+    console.log(i18nConf)
     // const authors = await getAuthorList({limit:5})
     return {
       props:{
