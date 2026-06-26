@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import React, {  createContext  } from 'react'
 // import allLocales from 'locales/allLabels.json'
-import localeEs from 'public/locales/es/common.json'
-import localeUs from 'public/locales/en-US/common.json'
+import localeEs from 'src/locales/es/common.json'
+import localeUs from 'src/locales/en-US/common.json'
 
 // export type Locale = keyof typeof allLocales;
 export type LocaleEs = keyof typeof localeEs;
