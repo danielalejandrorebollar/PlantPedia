@@ -79,7 +79,6 @@ function useAuthors() {
         if(response.ok){
           const data = await response.json();
           const receivedAuthors = data.authors;
-          console.log(receivedAuthors)
           setData(receivedAuthors)
           setStatus('success')
         }

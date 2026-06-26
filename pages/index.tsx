@@ -68,8 +68,11 @@ export default function Home({plants, notFound}: InferGetStaticPropsType<typeof 
     // console.log("Plantas",plants)
     // console.log("NotFound",notFound)
     if(notFound === true || plants === undefined ){
+      console.log(notFound)
+      console.log(plants)
+      const messageError = `No se encontró NotFound=${notFound} p=${plants} `
         return (
-            <NotFound statusCode={500}/>
+            <NotFound message={messageError} statusCode={500}/>
             
         )
     }
