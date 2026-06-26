@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
     // const authors = await getAuthorList({limit:5})
     return {
       props:{
-        plants, 
+        plants:[], 
         ...i18nConf
       },
       revalidate:  60,
