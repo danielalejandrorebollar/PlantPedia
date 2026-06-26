@@ -20,7 +20,7 @@ const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode, message }) => {
   }
 
   if(typeof statusCode === 'number' && statusCode > 500){
-    return <ServerError statusCode={statusCode}/>
+    return <ServerError message={message} statusCode={statusCode}/>
   }
 
   let errorMessage = message
