@@ -167,6 +167,7 @@ const PlantEntryPage = ({
 
 if(notFound === true || plant === undefined ){
     const messageError = `No se encontró error=${message} `
+    console.log(messageError)
     return (
         <NotFound message={messageError} statusCode={500}/>
         
