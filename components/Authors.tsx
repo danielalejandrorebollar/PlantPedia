@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getAuthorList, QueryStatus } from '@api'
+import {  QueryStatus } from '@api'
 import { Grid } from '@ui/Grid'
 import { Typography } from '@ui/Typography'
 
@@ -48,7 +48,7 @@ export function Authors({ className }: AuthorProps) {
 function useAuthors() {
   const [status, setStatus] = useState<QueryStatus>('idle')
   const [data, setData] = useState<Author[] | null>(null)
-  const [error, setError] = useState<Error[] | null>(null)
+  const [error, setError] = useState<Error | null>(null)
 
   // useEffect(
   //   () => {
