@@ -55,7 +55,7 @@ export const getStaticPaths: GetStaticPaths = async ({locales}) =>{
         //404 en entradas no encontrardas fallback: false
         // fallback blocking si no esta prerenderizada tiene que ir a buscarla al servidor y prerenderizarla
         // fallback tre nos da la oportunidad de mostrar estados de loading
-        fallback: true
+        fallback: 'blocking'
     }
 }
 
