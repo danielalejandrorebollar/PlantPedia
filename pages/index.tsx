@@ -9,6 +9,7 @@ import { getPlantList } from '@api'
 import { Authors } from '@components/Authors'
 import { Hero } from '@components/Hero'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
+import nextI18NextConfig from '../next-i18next.config'
 import NotFound from  './500'
 
 
@@ -23,7 +24,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
   try {
     const plants = await getPlantList({ limit: 20, locale})
     console.log("Plantas en getStaticProps de Index general",plants)
-    const i18nConf = await serverSideTranslations(locale! , ['common'])
+    const i18nConf = await serverSideTranslations(locale! , ['common'], nextI18NextConfig)
     // console.log(i18nConf)
     // const authors = await getAuthorList({limit:5})
     return {
