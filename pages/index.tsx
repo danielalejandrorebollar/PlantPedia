@@ -15,7 +15,7 @@ import NotFound from  './500'
 type HomeProps = {
   plants?: Plant[],
   notFound?: boolean,
-  error?:Error
+  error?:Error | undefined
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
@@ -31,15 +31,16 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
         plants, 
         ...i18nConf
       },
-      revalidate:  5,
+      revalidate:  60,
     }
     
   } catch (error) {
+    
     console.log("estes es el error en getStaticProps",error)
     return {
       props:{
-        notFound:true,
-        error
+        plants:[],
+        error: error instanceof Error ? error.message : 'Unknown error'
       }
     }
   }
@@ -47,7 +48,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
 }
 
 
-export default function Home({plants, notFound, error}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({plants, error}: InferGetStaticPropsType<typeof getStaticProps>) {
     // const [data, setData] = useState<Plant[]>([])
   
     // useEffect(()=>{
@@ -69,10 +70,9 @@ export default function Home({plants, notFound, error}: InferGetStaticPropsType<
 
     // console.log("Plantas",plants)
     // console.log("NotFound",notFound)
-    if(notFound === true || plants === undefined ){
-      console.log(notFound)
+    if(plants?.length === 0 || plants === undefined ){
       console.log(plants)
-      const messageError = `No se encontró NotFound=${notFound} p=${plants} error=${error?.message} `
+      const messageError = `No se encontró  p=${plants} error=${error} `
         return (
             <NotFound message={messageError} statusCode={500}/>
             
