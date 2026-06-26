@@ -66,7 +66,8 @@ type PlantEntryProps = {
         plant?: Plant,
         categories?: Category[],
         otherEntries?: Plant[],
-        notFound?: boolean
+        notFound?: boolean,
+        message?: Error | string
         
 }
 
@@ -101,10 +102,11 @@ export const getStaticProps : GetStaticProps<PlantEntryProps> = async ({ params,
             },
             revalidate: 5 * 60,
         }
-    } catch (e) {
+    } catch (error) {
         return {
             props:{
-                notFound: true
+                notFound: true,
+                message: error instanceof Error ? error.message : 'Unknown error',
             }
             // notFound: true //lo que nos permite nextjs tambien podemos hacer redirect
         }
@@ -116,7 +118,8 @@ const PlantEntryPage = ({
     plant,
     categories,
     otherEntries,
-    notFound
+    notFound,
+    message
 }:InferGetStaticPropsType<typeof getStaticProps >) => {
 
     // const [status,setStatus] = useState<QueryStatus>('idle')
@@ -163,8 +166,9 @@ const PlantEntryPage = ({
 
 
 if(notFound === true || plant === undefined ){
+    const messageError = `No se encontró error=${message} `
     return (
-        <NotFound message='No se encontró' statusCode={500}/>
+        <NotFound message={messageError} statusCode={500}/>
         
     )
 }
