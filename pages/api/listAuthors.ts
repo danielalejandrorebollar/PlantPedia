@@ -1,24 +1,22 @@
 import { getAuthorList } from '@api/index';
-import type {  NextApiResponse } from 'next';
+import type {  NextApiRequest, NextApiResponse } from 'next';
 
 
-export default async function  handler(  res: NextApiResponse) {
+export default async function  handler(_req:NextApiRequest,  res: NextApiResponse) {
 
   
   try {
 
     const authors  = await getAuthorList({ limit: 10 })
-    
-    return res.status(200).json({props: {authors}});
+    return res.status(200).json({authors});
 
   } catch (error) {
 
     return res.status(500).json({
-        props: {
           authors: [],
           status: 'error',
           error
-    }})
+    })
   }
   
   

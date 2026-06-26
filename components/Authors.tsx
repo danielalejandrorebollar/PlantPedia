@@ -75,17 +75,17 @@ function useAuthors() {
       const request = async () => {
       try {
       const response = await fetch("/api/listAuthors");
-        console.log(response)
+        
         if(response.ok){
           const data = await response.json();
-          const receivedAuthors = data.props.authors;
-          console.log("autores desde Authors",receivedAuthors)
+          const receivedAuthors = data.authors;
+          console.log(receivedAuthors)
           setData(receivedAuthors)
           setStatus('success')
         }
         if(response.status == 500){
           const data = await response.json();
-          const error = data.props.error;
+          const error = data.error;
           setStatus('error')
           setError(error)
         }
@@ -93,7 +93,7 @@ function useAuthors() {
     
 
     } catch (e) {
-        console.log("error en el usePlanListByAuthor",e)
+        console.log("error en el useAuthors",e)
       
     }
     }
