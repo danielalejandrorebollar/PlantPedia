@@ -8,6 +8,7 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import { PlantEntryInline } from '@components/PlantCollection'
 import {flatMap} from 'lodash' 
 import NotFound from  '../500'
+import nextI18NextConfig from '../../next-i18next.config'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 
@@ -75,7 +76,7 @@ export const getStaticProps : GetStaticProps<PlantEntryProps> = async ({ params,
     
     const slug = params?.slug
 
-    const i18nConf = await serverSideTranslations(locale! , ['common'])
+    const i18nConf = await serverSideTranslations(locale! , ['common'], nextI18NextConfig)
 
     if(typeof slug !== 'string'  ){
         return {
