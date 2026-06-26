@@ -161,7 +161,6 @@ export const usePlantListByAuthor = (
         if(response.ok){
           const data = await response.json();
           const receivedPlants = data.props.plants;
-          console.log(receivedPlants)
           setPlantList(receivedPlants)
           setStatus('success')
         }

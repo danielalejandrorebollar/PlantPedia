@@ -14,14 +14,15 @@ import NotFound from  './500'
 
 type HomeProps = {
   plants?: Plant[],
-  notFound?: boolean
+  notFound?: boolean,
+  error?:Error
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
 
   try {
     const plants = await getPlantList({ limit: 20, locale})
-    // console.log("Plantas en getStaticProps de Index general",plants)
+    console.log("Plantas en getStaticProps de Index general",plants)
     const i18nConf = await serverSideTranslations(locale! , ['common'])
     // console.log(i18nConf)
     // const authors = await getAuthorList({limit:5})
@@ -37,7 +38,8 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
     console.log("estes es el error en getStaticProps",error)
     return {
       props:{
-        notFound:true
+        notFound:true,
+        error
       }
     }
   }
@@ -45,7 +47,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
 }
 
 
-export default function Home({plants, notFound}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({plants, notFound, error}: InferGetStaticPropsType<typeof getStaticProps>) {
     // const [data, setData] = useState<Plant[]>([])
   
     // useEffect(()=>{
@@ -70,7 +72,7 @@ export default function Home({plants, notFound}: InferGetStaticPropsType<typeof 
     if(notFound === true || plants === undefined ){
       console.log(notFound)
       console.log(plants)
-      const messageError = `No se encontró NotFound=${notFound} p=${plants} `
+      const messageError = `No se encontró NotFound=${notFound} p=${plants} error=${error} `
         return (
             <NotFound message={messageError} statusCode={500}/>
             
