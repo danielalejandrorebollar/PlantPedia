@@ -15,7 +15,7 @@ import NotFound from  './500'
 type HomeProps = {
   plants?: Plant[],
   notFound?: boolean,
-  error?:Error | undefined
+  error?:Error | string
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
