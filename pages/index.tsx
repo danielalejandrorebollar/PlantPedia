@@ -16,21 +16,22 @@ import NotFound from  './500'
 type HomeProps = {
   plants?: Plant[],
   notFound?: boolean,
-  error?:Error | string
+  error?:Error | string,
+  error2?: string
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
   
   console.log('locale =', locale)
   try {
-    // const plants = await getPlantList({ limit: 20, locale})
+    const plants = await getPlantList({ limit: 20, locale})
     // console.log("Plantas en getStaticProps de Index general",plants)
     const i18nConf = await serverSideTranslations(locale! , ['common'], nextI18NextConfig)
     console.log(i18nConf)
     // const authors = await getAuthorList({limit:5})
     return {
       props:{
-        plants:[], 
+        plants, 
         ...i18nConf
       },
       revalidate:  60,
@@ -39,10 +40,12 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
   } catch (error) {
     
     console.log("estes es el error en getStaticProps",error)
+    console.log('locale:', JSON.stringify(locale))
     return {
       props:{
         plants:[],
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: error instanceof Error ? error.message : 'Unknown error',
+        error2:JSON.stringify(locale)
       }
     }
   }
@@ -50,7 +53,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) =>{
 }
 
 
-export default function Home({plants, error}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({plants, error,error2}: InferGetStaticPropsType<typeof getStaticProps>) {
     // const [data, setData] = useState<Plant[]>([])
   
     // useEffect(()=>{
@@ -73,8 +76,8 @@ export default function Home({plants, error}: InferGetStaticPropsType<typeof get
     // console.log("Plantas",plants)
     // console.log("NotFound",notFound)
     if(plants?.length === 0 || plants === undefined ){
-      console.log(plants)
-      const messageError = `No se encontró  p=${plants} error=${error} `
+      // console.log(plants)
+      const messageError = `No se encontró  p=${plants} error=${error} error2=${error2} `
         return (
             <NotFound message={messageError} statusCode={500}/>
             
