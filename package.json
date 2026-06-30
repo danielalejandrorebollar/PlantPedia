@@ -21,7 +21,7 @@
     "cookie": "^1.1.1",
     "js-cookie": "^3.0.7",
     "next": "10.2.3",
-    "next-i18next": "10",
+    "next-i18next": "12",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
